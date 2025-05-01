@@ -1,6 +1,7 @@
+# app.py
 import streamlit as st
 
-# --- Page Setup ---
+# --- App Config ---
 st.set_page_config(page_title="SeniorShield", layout="centered")
 
 # --- Hide Sidebar ---
@@ -10,95 +11,55 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# --- App Title ---
-st.markdown("<h1 style='font-size: 50px;'>🛡️ SeniorShield</h1>", unsafe_allow_html=True)
+# --- Header ---
+st.markdown("<h1 style='font-size: 50px;'>\ud83d\udee1\ufe0f SeniorShield</h1>", unsafe_allow_html=True)
 st.markdown("<h3 style='font-size: 26px;'>Protecting seniors from scams with awareness and action</h3>", unsafe_allow_html=True)
 st.markdown("---")
 
-# --- Navigation Menu ---
-choice = st.selectbox("What would you like to do?", [
-    "🧠 Scam Quiz",
-    "📞 Help & Contacts",
-    "📚 Scam Awareness Courses"
+# --- Language Selection ---
+lang = st.selectbox("\ud83c\udf10 Choose Language / 选择语言 / Pilih Bahasa / மொழியைத் தேர்ந்தெடுக்கவும்", 
+                    options=["English", "中文", "Malay", "Tamil"])
+
+# --- Navigation ---
+page = st.selectbox("What would you like to do?", [
+    "\ud83e\uddd0 Scam Quiz",
+    "\ud83d\udcde Help & Contacts",
+    "\ud83d\udcda Scam Awareness Courses"
 ])
 
-# ----------------------------
-# 🧠 Scam Quiz
-# ----------------------------
-if choice == "🧠 Scam Quiz":
-    st.markdown("## 🧠 Scam Detection Quiz")
-    st.write("Test your scam awareness with a short quiz.")
+# === Translations for All Sections ===
+labels = {
+    "English": {
+        "help": "## \ud83d\udcde Scam Help & Contacts\n### \ud83d\udccc Hotlines\n- Anti-Scam Helpline (Singapore): **1800-722-6688**\n- Police: **999**\n- ScamAlert: [scamalert.sg](https://www.scamalert.sg)\n- ScamShield: [scamshield.org.sg](https://www.scamshield.org.sg)\n\n### \u2705 Safety Tips\n- Never give out OTPs, passwords, or NRICs.\n- Don’t click unknown links.\n- Always verify calls with official sources.",
+        "courses": "## \ud83d\udcda Scam Awareness Courses\n### \ud83d\udca1 Free Programmes in Singapore\n- **IMDA Seniors Go Digital**: Scam spotting & safe digital skills\n- **CSA Scam Roadshows** at CCs & libraries\n- **PA Digital Literacy Courses** in your neighbourhood\n\nFor help registering, call **6377-3800**."
+    },
+    "中文": {
+        "help": "## \ud83d\udcde 防骗帮助与联系方式\n### \ud83d\udccc 热线电话\n- 防骗热线（新加坡）：**1800-722-6688**\n- 警察：**999**\n- 防骗网站: [scamalert.sg](https://www.scamalert.sg)\n- ScamShield 应用: [scamshield.org.sg](https://www.scamshield.org.sg)\n\n### \u2705 安全提示\n- 切勿泄露OTP、密码或身份证号码。\n- 不要点击陌生链接。\n- 请通过官方渠道验证来电。",
+        "courses": "## \ud83d\udcda 防骗课程\n### \ud83d\udca1 新加坡免费课程\n- **IMDA数码乐龄计划**：识别诈骗与数码安全\n- **CSA巡回讲座**：社区中心与图书馆举行\n- **人民协会课程**：本地居民可参加\n\n报名请拨打：**6377-3800**"
+    },
+    "Malay": {
+        "help": "## \ud83d\udcde Bantuan & Nombor Penting\n### \ud83d\udccc Talian\n- Talian Anti-Scam: **1800-722-6688**\n- Polis: **999**\n- ScamAlert: [scamalert.sg](https://www.scamalert.sg)\n- ScamShield: [scamshield.org.sg](https://www.scamshield.org.sg)\n\n### \u2705 Petua Keselamatan\n- Jangan kongsi OTP, kata laluan, atau NRIC.\n- Jangan klik pautan yang tidak dikenali.\n- Semak panggilan melalui nombor rasmi.",
+        "courses": "## \ud83d\udcda Kursus Kesedaran Scam\n### \ud83d\udca1 Program Percuma\n- **IMDA Seniors Go Digital**\n- **CSA Kempen Scam**\n- **Kursus Digital PA** di pusat komuniti\n\nDaftar melalui hotline: **6377-3800**"
+    },
+    "Tamil": {
+        "help": "## \ud83d\udcde மோசடி உதவி மற்றும் தொலைபேசி எண்கள்\n### \ud83d\udccc ஹாட்லைன்கள்\n- மோசடி உதவி: **1800-722-6688**\n- காவல் துறைக்கு: **999**\n- ScamAlert: [scamalert.sg](https://www.scamalert.sg)\n- ScamShield: [scamshield.org.sg](https://www.scamshield.org.sg)\n\n### \u2705 பாதுகாப்பு அறிவுரை\n- OTP, கடவுச்சொல், NRIC பகிர வேண்டாம்.\n- தெரியாத இணைப்புகளை கிளிக் செய்யவேண்டாம்.\n- அதிகாரபூர்வ எண்ணை உறுதிப்படுத்தவும்.",
+        "courses": "## \ud83d\udcda மோசடி விழிப்புணர்வு வகுப்புகள்\n### \ud83d\udca1 இலவச திட்டங்கள்\n- **IMDA Seniors Go Digital**\n- **CSA சாலை நிகழ்வுகள்**\n- **PA டிஜிட்டல் கல்வி வகுப்புகள்**\n\nபதிவு செய்ய: **6377-3800**"
+    }
+}
 
-    score = 0
+# === PAGE: QUIZ ===
+if page == "\ud83e\uddd0 Scam Quiz":
+    st.markdown("## \ud83e\uddd0 Scam Detection Quiz")
+    st.write("Test your scam awareness in your selected language:")
 
-    q1 = st.radio("1. You get a call saying you've won a lucky draw but must pay $100 to claim it. What do you do?",
-                  ["Pay quickly", "Hang up immediately", "Ask for their NRIC"])
-    if q1 == "Hang up immediately":
-        score += 1
+    # Include quiz logic from previous cell here (you already have it)
+    # Use questions[lang] to get localized quiz questions (see previous assistant message)
+    # Paste full quiz block here if needed
 
-    q2 = st.radio("2. You receive an SMS with a suspicious link from 'your bank'. What should you do?",
-                  ["Click and log in", "Call the bank's hotline", "Reply to ask for info"])
-    if q2 == "Call the bank's hotline":
-        score += 1
+# === PAGE: HELP & CONTACTS ===
+elif page == "\ud83d\udcde Help & Contacts":
+    st.markdown(labels[lang]["help"], unsafe_allow_html=True)
 
-    q3 = st.radio("3. Someone on Facebook says they need your help to transfer money. You should:",
-                  ["Ask what it's for", "Ignore or block", "Offer help"])
-    if q3 == "Ignore or block":
-        score += 1
-
-    if st.button("Submit Answers"):
-        st.success(f"You got {score}/3 correct.")
-        if score == 3:
-            st.info("🎉 Great job! You're scam smart.")
-            st.balloons()
-        elif score == 2:
-            st.info("👍 Not bad — keep learning.")
-        else:
-            st.warning("😬 Be careful — scammers are tricky. Learn more on the Help page.")
-
-# ----------------------------
-# 📞 Help & Contacts
-# ----------------------------
-elif choice == "📞 Help & Contacts":
-    st.markdown("## 📞 Scam Help & Contacts")
-    st.markdown("Need help or want to report a scam? Here are official resources:")
-
-    st.markdown("### 📌 Singapore Scam Reporting Hotlines")
-    st.markdown("""
-    - ☎️ **Anti-Scam Helpline**: **1800-722-6688**
-    - 🚨 **Police Emergency Hotline**: **999**
-    - 🕵️‍♀️ **National Crime Prevention Council (NCPC)**: [scamalert.sg](https://www.scamalert.sg)
-    - 📱 **ScamShield**: [scamshield.org.sg](https://www.scamshield.org.sg)
-    """)
-
-    st.markdown("### ✅ Safety Tips for Seniors")
-    st.markdown("""
-    - ❌ Never give out your **OTP**, **NRIC**, or **passwords** to anyone.
-    - ❌ Do not click on suspicious links in SMS, WhatsApp, or email.
-    - ☎️ Always **verify calls** with official hotlines.
-    - ✅ Use the **ScamShield app** to block scams.
-    """)
-
-    st.info("This app was designed with seniors in mind. Share it with your loved ones.")
-
-# ----------------------------
-# 📚 Scam Awareness Courses
-# ----------------------------
-elif choice == "📚 Scam Awareness Courses":
-    st.markdown("## 📚 Scam Awareness Courses for Seniors in Singapore")
-    st.markdown("Stay up to date with free scam prevention programmes offered across Singapore:")
-
-    st.markdown("### 💡 Courses & Workshops")
-    st.markdown("""
-    - **IMDA Digital Skills for Life (Seniors Go Digital)**  
-      [https://www.imda.gov.sg](https://www.imda.gov.sg/programme-listing/Seniors-Go-Digital)  
-      _Learn how to spot scams, use mobile apps safely, and browse securely._
-
-    - **Cyber Security Agency (CSA) Scam Awareness Roadshows**  
-      Watch for their pop-up events at community centres and libraries.
-
-    - **People’s Association (PA) Digital Literacy Courses**  
-      Visit your nearest Community Centre for basic scam awareness talks and digital skills training.
-    """)
-
-    st.markdown("💬 Want help registering? Call the **Silver Infocomm Hotline** at **6377-3800**.")
+# === PAGE: COURSES ===
+elif page == "\ud83d\udcda Scam Awareness Courses":
+    st.markdown(labels[lang]["courses"], unsafe_allow_html=True)
