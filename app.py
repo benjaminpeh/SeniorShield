@@ -27,7 +27,7 @@ page = st.selectbox("What would you like to do?", [
     "\ud83d\udcda Scam Awareness Courses"
 ])
 
-# --- Translated Content ---
+# --- Labels ---
 labels = {
     "English": {
         "help": "## \ud83d\udcde Scam Help & Contacts\n### \ud83d\udccc Hotlines\n- Anti-Scam Helpline (Singapore): **1800-722-6688**\n- Police: **999**\n- ScamAlert: [scamalert.sg](https://www.scamalert.sg)\n- ScamShield: [scamshield.org.sg](https://www.scamshield.org.sg)\n\n### \u2705 Safety Tips\n- Never give out OTPs, passwords, or NRICs.\n- Don’t click unknown links.\n- Always verify calls with official sources.",
@@ -47,16 +47,46 @@ labels = {
     }
 }
 
-# === PAGE: QUIZ ===
+# --- Quiz Data ---
+questions = {
+    "English": [
+        {"q": "You get a call saying you've won a lucky draw but must pay $100. What do you do?", "options": ["Pay quickly", "Hang up immediately", "Ask for their NRIC"], "correct": "Hang up immediately"},
+        {"q": "You receive a suspicious SMS from 'your bank'. What should you do?", "options": ["Click and log in", "Call the bank's hotline", "Reply to ask"], "correct": "Call the bank's hotline"},
+        {"q": "Someone on Facebook asks for help transferring money. What do you do?", "options": ["Ask what it's for", "Ignore or block", "Offer help"], "correct": "Ignore or block"}
+    ],
+    "中文": [
+        {"q": "你接到电话说中奖了但要付$100。你应该？", "options": ["付款", "立刻挂断", "问对方身份证"], "correct": "立刻挂断"},
+        {"q": "你收到来自‘银行’的可疑短信。你该怎么办？", "options": ["点击链接", "拨打官方热线", "回复询问"], "correct": "拨打官方热线"},
+        {"q": "有人在 Facebook 上请求你转账。你应该？", "options": ["问目的", "忽略或封锁", "帮忙"], "correct": "忽略或封锁"}
+    ],
+    "Malay": [
+        {"q": "Anda menerima panggilan menyatakan anda menang cabutan bertuah dan perlu bayar $100. Apa patut anda buat?", "options": ["Bayar segera", "Letak telefon segera", "Tanya IC mereka"], "correct": "Letak telefon segera"},
+        {"q": "Anda menerima SMS dengan pautan dari 'bank anda'. Apa perlu dilakukan?", "options": ["Klik pautan", "Hubungi bank", "Balas mesej"], "correct": "Hubungi bank"},
+        {"q": "Seseorang di Facebook mahu bantuan pindah wang. Anda harus:", "options": ["Tanya tujuan", "Abaikan atau sekat", "Tolong"], "correct": "Abaikan atau sekat"}
+    ],
+    "Tamil": [
+        {"q": "நீங்கள் பரிசு வென்றதாக அழைப்பு வருகிறது, ஆனால் பெற $100 வேண்டும். நீங்கள்?", "options": ["விசை செலுத்தவும்", "உடனே துண்டிக்கவும்", "அவர்களிடம் NRIC கேளுங்கள்"], "correct": "உடனே துண்டிக்கவும்"},
+        {"q": "உங்கள் வங்கியில் இருந்து சந்தேகமான SMS. நீங்கள்?", "options": ["உள்நுழைய கிளிக் செய்யவும்", "வங்கிக்கு அழைக்கவும்", "பதிலளிக்கவும்"], "correct": "வங்கிக்கு அழைக்கவும்"},
+        {"q": "Facebook-இல் ஒருவர் பணம் மாற்ற உதவி கேட்கிறார். நீங்கள்?", "options": ["ஏன் என்று கேளுங்கள்", "புறக்கணிக்கவும் அல்லது தடுக்கவும்", "உதவுங்கள்"], "correct": "புறக்கணிக்கவும் அல்லது தடுக்கவும்"}
+    ]
+}
+
+# === PAGE HANDLING ===
 if page == "\ud83e\uddd0 Scam Quiz":
     st.markdown("## \ud83e\uddd0 Scam Detection Quiz")
-    st.write("(Multilingual quiz feature under construction)")
+    quiz = questions[lang]
+    score = 0
+    for i, q in enumerate(quiz):
+        answer = st.radio(f"{i+1}. {q['q']}", q['options'], key=f"q{i}")
+        if answer == q['correct']:
+            score += 1
+    if st.button("✅ Submit Answers"):
+        st.success(f"You scored {score} / {len(quiz)}")
+        if score == len(quiz):
+            st.balloons()
 
-# === PAGE: HELP & CONTACTS ===
 elif page == "\ud83d\udcde Help & Contacts":
     st.markdown(labels[lang]["help"], unsafe_allow_html=True)
 
-# === PAGE: COURSES ===
 elif page == "\ud83d\udcda Scam Awareness Courses":
     st.markdown(labels[lang]["courses"], unsafe_allow_html=True)
-
