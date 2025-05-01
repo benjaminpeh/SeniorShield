@@ -12,11 +12,11 @@ st.markdown("""
 
 # --- App Title ---
 st.markdown("<h1 style='font-size: 50px;'>🛡️ SeniorShield</h1>", unsafe_allow_html=True)
-st.markdown("<h3 style='font-size: 26px;'>Helping our seniors detect and report scams with ease</h3>", unsafe_allow_html=True)
+st.markdown("<h3 style='font-size: 26px;'>Protecting seniors from scams with awareness and action</h3>", unsafe_allow_html=True)
 st.markdown("---")
 
 # --- Navigation Menu ---
-choice = st.selectbox("Navigate:", [
+choice = st.selectbox("What would you like to do?", [
     "🧠 Scam Quiz",
     "📞 Help & Contacts",
     "📚 Scam Awareness Courses"
@@ -65,17 +65,17 @@ elif choice == "📞 Help & Contacts":
 
     st.markdown("### 📌 Singapore Scam Reporting Hotlines")
     st.markdown("""
-    - ☎️ **Anti-Scam Helpline**: **1800-722-6688**  
-    - 🚨 **Police Emergency Hotline**: **999**  
-    - 🕵️‍♀️ **National Crime Prevention Council (NCPC)**: [scamalert.sg](https://www.scamalert.sg)  
+    - ☎️ **Anti-Scam Helpline**: **1800-722-6688**
+    - 🚨 **Police Emergency Hotline**: **999**
+    - 🕵️‍♀️ **National Crime Prevention Council (NCPC)**: [scamalert.sg](https://www.scamalert.sg)
     - 📱 **ScamShield**: [scamshield.org.sg](https://www.scamshield.org.sg)
     """)
 
     st.markdown("### ✅ Safety Tips for Seniors")
     st.markdown("""
-    - ❌ Never give out your **OTP**, **NRIC**, or **passwords** to anyone.  
-    - ❌ Do not click on suspicious links in SMS, WhatsApp, or email.  
-    - ☎️ Always **verify calls** with official hotlines.  
+    - ❌ Never give out your **OTP**, **NRIC**, or **passwords** to anyone.
+    - ❌ Do not click on suspicious links in SMS, WhatsApp, or email.
+    - ☎️ Always **verify calls** with official hotlines.
     - ✅ Use the **ScamShield app** to block scams.
     """)
 
@@ -91,7 +91,7 @@ elif choice == "📚 Scam Awareness Courses":
     st.markdown("### 💡 Courses & Workshops")
     st.markdown("""
     - **IMDA Digital Skills for Life (Seniors Go Digital)**  
-      [https://www.imda.gov.sg/programme-listing/Seniors-Go-Digital](https://www.imda.gov.sg/programme-listing/Seniors-Go-Digital)  
+      [https://www.imda.gov.sg](https://www.imda.gov.sg/programme-listing/Seniors-Go-Digital)  
       _Learn how to spot scams, use mobile apps safely, and browse securely._
 
     - **Cyber Security Agency (CSA) Scam Awareness Roadshows**  
