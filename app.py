@@ -1,55 +1,31 @@
 import streamlit as st
 
-# --- App Setup ---
+# --- Page Setup ---
 st.set_page_config(page_title="SeniorShield", layout="centered")
 
 # --- Hide Sidebar ---
-hide_sidebar = """
+st.markdown("""
     <style>
         [data-testid="stSidebar"] {display: none;}
-        [data-testid="stSidebarNav"] {display: none;}
     </style>
-"""
-st.markdown(hide_sidebar, unsafe_allow_html=True)
+""", unsafe_allow_html=True)
 
-# --- Header ---
+# --- App Title ---
 st.markdown("<h1 style='font-size: 50px;'>🛡️ SeniorShield</h1>", unsafe_allow_html=True)
 st.markdown("<h3 style='font-size: 26px;'>Protecting seniors from scams with awareness and action</h3>", unsafe_allow_html=True)
 st.markdown("---")
 
-# --- Navigation ---
+# --- Navigation Menu ---
 choice = st.selectbox("What would you like to do?", [
-    "👋 Home",
-    "📢 Report a Scam",
     "🧠 Scam Quiz",
-    "📞 Help & Contacts"
+    "📞 Help & Contacts",
+    "📚 Scam Awareness Courses"
 ])
 
-# --- Home Page ---
-if choice == "👋 Home":
-    st.write("Welcome to **SeniorShield**, a simple and safe platform to help elderly users detect, understand, and report scams.")
-    st.write("This site is designed with accessibility in mind: large fonts, minimal distractions, and clear navigation.")
-
-# --- Scam Report Page ---
-elif choice == "📢 Report a Scam":
-    st.markdown("## 📢 Report a Scam")
-    st.markdown("Fill in this form to describe the scam you encountered:")
-
-    with st.form("report_form"):
-        name = st.text_input("Your Name (optional)")
-        scam_type = st.selectbox("Type of Scam", [
-            "Phone Call", "WhatsApp/SMS", "Email", "Impersonation", "Online Purchase", "Other"
-        ])
-        description = st.text_area("What happened?", height=200)
-        contact = st.text_input("Your Contact (optional)")
-        submitted = st.form_submit_button("Submit Report")
-
-    if submitted:
-        st.success("✅ Thank you. Your report has been received.")
-        st.balloons()
-
-# --- Scam Quiz Page ---
-elif choice == "🧠 Scam Quiz":
+# ----------------------------
+# 🧠 Scam Quiz
+# ----------------------------
+if choice == "🧠 Scam Quiz":
     st.markdown("## 🧠 Scam Detection Quiz")
     st.write("Test your scam awareness with a short quiz.")
 
@@ -80,19 +56,49 @@ elif choice == "🧠 Scam Quiz":
         else:
             st.warning("😬 Be careful — scammers are tricky. Learn more on the Help page.")
 
-# --- Help & Contacts Page ---
+# ----------------------------
+# 📞 Help & Contacts
+# ----------------------------
 elif choice == "📞 Help & Contacts":
     st.markdown("## 📞 Scam Help & Contacts")
-    st.markdown("""
-    ### 📌 Hotlines
-    - Anti-Scam Helpline (Singapore): **1800-722-6688**
-    - Police: **999**
-    - ScamShield: [scamshield.org.sg](https://www.scamshield.org.sg)
+    st.markdown("Need help or want to report a scam? Here are official resources:")
 
-    ### ✅ Safety Tips
-    - Never give out OTPs, passwords, or NRICs.
-    - Don't click unknown links.
-    - Verify all calls with official sources.
+    st.markdown("### 📌 Singapore Scam Reporting Hotlines")
+    st.markdown("""
+    - ☎️ **Anti-Scam Helpline**: **1800-722-6688**
+    - 🚨 **Police Emergency Hotline**: **999**
+    - 🕵️‍♀️ **National Crime Prevention Council (NCPC)**: [scamalert.sg](https://www.scamalert.sg)
+    - 📱 **ScamShield**: [scamshield.org.sg](https://www.scamshield.org.sg)
     """)
 
-    st.info("This app was designed for seniors. Share it with those who may need help spotting scams.")
+    st.markdown("### ✅ Safety Tips for Seniors")
+    st.markdown("""
+    - ❌ Never give out your **OTP**, **NRIC**, or **passwords** to anyone.
+    - ❌ Do not click on suspicious links in SMS, WhatsApp, or email.
+    - ☎️ Always **verify calls** with official hotlines.
+    - ✅ Use the **ScamShield app** to block scams.
+    """)
+
+    st.info("This app was designed with seniors in mind. Share it with your loved ones.")
+
+# ----------------------------
+# 📚 Scam Awareness Courses
+# ----------------------------
+elif choice == "📚 Scam Awareness Courses":
+    st.markdown("## 📚 Scam Awareness Courses for Seniors in Singapore")
+    st.markdown("Stay up to date with free scam prevention programmes offered across Singapore:")
+
+    st.markdown("### 💡 Courses & Workshops")
+    st.markdown("""
+    - **IMDA Digital Skills for Life (Seniors Go Digital)**  
+      [https://www.imda.gov.sg](https://www.imda.gov.sg/programme-listing/Seniors-Go-Digital)  
+      _Learn how to spot scams, use mobile apps safely, and browse securely._
+
+    - **Cyber Security Agency (CSA) Scam Awareness Roadshows**  
+      Watch for their pop-up events at community centres and libraries.
+
+    - **People’s Association (PA) Digital Literacy Courses**  
+      Visit your nearest Community Centre for basic scam awareness talks and digital skills training.
+    """)
+
+    st.markdown("💬 Want help registering? Call the **Silver Infocomm Hotline** at **6377-3800**.")
