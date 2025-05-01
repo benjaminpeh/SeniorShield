@@ -27,7 +27,7 @@ page = st.selectbox("What would you like to do?", [
     "\ud83d\udcda Scam Awareness Courses"
 ])
 
-# === Translations for All Sections ===
+# --- Translated Content ---
 labels = {
     "English": {
         "help": "## \ud83d\udcde Scam Help & Contacts\n### \ud83d\udccc Hotlines\n- Anti-Scam Helpline (Singapore): **1800-722-6688**\n- Police: **999**\n- ScamAlert: [scamalert.sg](https://www.scamalert.sg)\n- ScamShield: [scamshield.org.sg](https://www.scamshield.org.sg)\n\n### \u2705 Safety Tips\n- Never give out OTPs, passwords, or NRICs.\n- Don’t click unknown links.\n- Always verify calls with official sources.",
@@ -50,11 +50,7 @@ labels = {
 # === PAGE: QUIZ ===
 if page == "\ud83e\uddd0 Scam Quiz":
     st.markdown("## \ud83e\uddd0 Scam Detection Quiz")
-    st.write("Test your scam awareness in your selected language:")
-
-    # Include quiz logic from previous cell here (you already have it)
-    # Use questions[lang] to get localized quiz questions (see previous assistant message)
-    # Paste full quiz block here if needed
+    st.write("(Multilingual quiz feature under construction)")
 
 # === PAGE: HELP & CONTACTS ===
 elif page == "\ud83d\udcde Help & Contacts":
@@ -63,3 +59,4 @@ elif page == "\ud83d\udcde Help & Contacts":
 # === PAGE: COURSES ===
 elif page == "\ud83d\udcda Scam Awareness Courses":
     st.markdown(labels[lang]["courses"], unsafe_allow_html=True)
+
