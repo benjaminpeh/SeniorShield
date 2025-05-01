@@ -1,7 +1,4 @@
 import streamlit as st
-import pytesseract
-from PIL import Image
-import io
 
 # --- Page Setup ---
 st.set_page_config(page_title="SeniorShield", layout="centered")
@@ -23,46 +20,138 @@ choice = st.selectbox("What would you like to do?", [
     "\ud83e\uddd0 Scam Quiz",
     "\ud83d\udcde Help & Contacts",
     "\ud83d\udcda Scam Awareness Courses",
-    "\ud83d\udcf7 Scan a Screenshot for Scams"
+    "\ud83d\udd0e Paste & Check for Scam Keywords"
 ])
 
-# --- Scam Quiz (same as before) ---
+# ----------------------------
+# \ud83e\uddd0 Scam Quiz (Enhanced)
+# ----------------------------
 if choice == "\ud83e\uddd0 Scam Quiz":
-    # [Insert existing Scam Quiz block here, unchanged]
-    st.write("[Scam Quiz content remains unchanged here...]")
+    st.markdown("## \ud83e\uddd0 Scam Detection Quiz")
+    st.write("Answer the following questions to test your scam awareness:")
 
-# --- Help & Contacts (same as before) ---
+    st.markdown("---")
+    score = 0
+    total = 5
+    explanations = []
+
+    q1 = st.radio("**1.** You get a call saying you've won a lucky draw but must pay $100 to claim it. What do you do?",
+                  ["Pay quickly", "Hang up immediately", "Ask for their NRIC"], index=None)
+    if q1:
+        if q1 == "Hang up immediately":
+            score += 1
+        else:
+            explanations.append("Q1: Scammers often ask for payment to claim fake prizes. Hang up immediately.")
+
+    q2 = st.radio("**2.** You receive an SMS with a suspicious link from 'your bank'. What should you do?",
+                  ["Click and log in", "Call the bank's hotline", "Reply to ask for info"], index=None)
+    if q2:
+        if q2 == "Call the bank's hotline":
+            score += 1
+        else:
+            explanations.append("Q2: Never click links from unknown messages. Always call the bank directly.")
+
+    q3 = st.radio("**3.** Someone on Facebook says they need your help to transfer money. You should:",
+                  ["Ask what it's for", "Ignore or block", "Offer help"], index=None)
+    if q3:
+        if q3 == "Ignore or block":
+            score += 1
+        else:
+            explanations.append("Q3: Scammers often use social media. Always ignore or block unknown requests.")
+
+    q4 = st.radio("**4.** A message says your Singpass is locked and you must click a link to unlock. What do you do?",
+                  ["Click and unlock it", "Log in manually to check", "Ignore and report it"], index=None)
+    if q4:
+        if q4 == "Ignore and report it":
+            score += 1
+        else:
+            explanations.append("Q4: Official sites like Singpass never send links via SMS. Ignore and report them.")
+
+    q5 = st.radio("**5.** You receive a call from someone claiming to be the police, asking for your IC and bank details. What should you do?",
+                  ["Provide the info slowly", "Ask for their badge number", "Hang up and call the real police"], index=None)
+    if q5:
+        if q5 == "Hang up and call the real police":
+            score += 1
+        else:
+            explanations.append("Q5: Real police will never ask for your IC/bank details over the phone.")
+
+    if st.button("\u2705 Submit Answers"):
+        st.markdown("---")
+        st.success(f"\ud83c\udfaf You scored **{score} out of {total}**.")
+
+        if score == total:
+            st.balloons()
+            st.info("\ud83c\udf89 Excellent! You're highly scam-aware.")
+        elif score >= 3:
+            st.info("\ud83d\udc4d Good job — just a few areas to watch.")
+        else:
+            st.warning("\u26a0\ufe0f You may be vulnerable to scams. Check the Help page to learn more.")
+
+        if explanations:
+            st.markdown("### \ud83d\udca1 Here's how to improve:")
+            for explain in explanations:
+                st.markdown(f"- {explain}")
+
+# ----------------------------
+# \ud83d\udcde Help & Contacts
+# ----------------------------
 elif choice == "\ud83d\udcde Help & Contacts":
-    # [Insert existing Help & Contacts block here, unchanged]
-    st.write("[Help & Contacts content remains unchanged here...]")
+    st.markdown("## \ud83d\udcde Scam Help & Contacts")
+    st.markdown("Need help or want to report a scam? Here are official resources:")
 
-# --- Scam Awareness Courses (same as before) ---
+    st.markdown("### \ud83d\udccc Singapore Scam Reporting Hotlines")
+    st.markdown("""
+    - ☎️ **Anti-Scam Helpline**: **1800-722-6688**
+    - 🚨 **Police Emergency Hotline**: **999**
+    - 🕵️‍♀️ **National Crime Prevention Council (NCPC)**: [scamalert.sg](https://www.scamalert.sg)
+    - 📱 **ScamShield**: [scamshield.org.sg](https://www.scamshield.org.sg)
+    """)
+
+    st.markdown("### \u2705 Safety Tips for Seniors")
+    st.markdown("""
+    - ❌ Never give out your **OTP**, **NRIC**, or **passwords** to anyone.
+    - ❌ Do not click on suspicious links in SMS, WhatsApp, or email.
+    - ☎️ Always **verify calls** with official hotlines.
+    - ✅ Use the **ScamShield app** to block scams.
+    """)
+
+    st.info("This app was designed with seniors in mind. Share it with your loved ones.")
+
+# ----------------------------
+# \ud83d\udcda Scam Awareness Courses
+# ----------------------------
 elif choice == "\ud83d\udcda Scam Awareness Courses":
-    # [Insert existing Scam Awareness Courses block here, unchanged]
-    st.write("[Scam Awareness Courses content remains unchanged here...]")
+    st.markdown("## \ud83d\udcda Scam Awareness Courses for Seniors in Singapore")
+    st.markdown("Stay up to date with free scam prevention programmes offered across Singapore:")
 
-# --- NEW: Upload Screenshot to Detect Scam ---
-elif choice == "\ud83d\udcf7 Scan a Screenshot for Scams":
-    st.markdown("## \ud83d\udcf7 Upload Screenshot or Email Screenshot")
-    st.write("Let us help you detect if the message might be a scam.")
+    st.markdown("### \ud83d\udca1 Courses & Workshops")
+    st.markdown("""
+    - **IMDA Digital Skills for Life (Seniors Go Digital)**  
+      [https://www.imda.gov.sg/programme-listing/Seniors-Go-Digital](https://www.imda.gov.sg/programme-listing/Seniors-Go-Digital)  
+      _Learn how to spot scams, use mobile apps safely, and browse securely._
 
-    uploaded_file = st.file_uploader("Upload a screenshot (JPG, PNG)", type=["jpg", "jpeg", "png"])
+    - **Cyber Security Agency (CSA) Scam Awareness Roadshows**  
+      Watch for their pop-up events at community centres and libraries.
 
-    if uploaded_file is not None:
-        image = Image.open(uploaded_file)
-        st.image(image, caption="Uploaded Screenshot", use_column_width=True)
+    - **People’s Association (PA) Digital Literacy Courses**  
+      Visit your nearest Community Centre for basic scam awareness talks and digital skills training.
+    """)
 
-        with st.spinner("Scanning for suspicious words..."):
-            text = pytesseract.image_to_string(image)
+    st.markdown("\ud83d\udcac Want help registering? Call the **Silver Infocomm Hotline** at **6377-3800**.")
 
-            scam_keywords = ["prize", "otp", "password", "urgent", "click", "login", "bank", "transfer", "money", "win", "payment", "verify", "account"]
-            found_keywords = [kw for kw in scam_keywords if kw.lower() in text.lower()]
+# ----------------------------
+# \ud83d\udd0e Paste & Check Text for Scam Keywords
+# ----------------------------
+elif choice == "\ud83d\udd0e Paste & Check for Scam Keywords":
+    st.markdown("## \ud83d\udd0e Paste Message Text to Check for Scams")
+    user_text = st.text_area("Paste your message here (e.g., from SMS, email, or chat)")
 
-            st.markdown("### 🔍 Detected Text:")
-            st.text(text.strip())
+    if st.button("\ud83d\udd0e Analyze Message"):
+        scam_keywords = ["prize", "otp", "urgent", "password", "click", "transfer", "verify", "win", "login", "bank"]
+        found = [word for word in scam_keywords if word in user_text.lower()]
 
-            if found_keywords:
-                st.warning(f"⚠️ This message contains words that are often used in scams: {', '.join(found_keywords)}")
-                st.info("Please verify the message source or contact someone you trust before taking any action.")
-            else:
-                st.success("✅ No major scam-related keywords detected. Stay alert and safe!")
+        if found:
+            st.warning(f"\u26a0\ufe0f Suspicious words detected: {', '.join(found)}")
+            st.info("Please verify this message with someone you trust before acting on it.")
+        else:
+            st.success("\u2705 No common scam keywords found. Stay alert and safe!")
